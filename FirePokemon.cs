@@ -6,38 +6,20 @@ using System.Threading.Tasks;
 
 namespace Pokemon_Battle_SImulator
 {
-	internal class FirePokemon : Pokemon
-	{
-		public FirePokemon(String name) : base(name)
-		{
-			this.Type = "Fire";
-		}
+    public class FirePokemon : Pokemon
+    {
+        public FirePokemon(string name, int maxHP) : base(name, "Fire", maxHP) { }
 
-		public void Ember(Pokemon p)
-		{
-			int damage = 40;
-			Console.WriteLine($"{Name} uses Ember");
-			Console.WriteLine($"{Name} blasts a torrent of fire towards {p.Name}");
-			if (p.Type == "Water")
-			{
-				damage /= 2;
-				Console.WriteLine("The attack was not effective");
-			}
-			if (p.Type == "Grass")
-			{
-				damage *= 2;
-				Console.WriteLine("The attack was supereffective");
-			}
-			p.DamagePokemon(damage);
+        public void Ember(Pokemon opponent)
+        {
+            Console.WriteLine($"{Name} uses Ember!");
+            opponent.TakeDamage(8);
+        }
 
-			// Lets burn him
-			Random random = new Random();
-			if (random.Next(100) < 10)
-			{
-				p.BurnPokemon();
-			}
-			
-		}
-
-	}
+        public void Flamethrower(Pokemon opponent)
+        {
+            Console.WriteLine($"{Name} uses Flamethrower!");
+            opponent.TakeDamage(15);
+        }
+    }
 }

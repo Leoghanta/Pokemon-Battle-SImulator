@@ -7,85 +7,51 @@ using System.Threading.Tasks;
 
 namespace Pokemon_Battle_SImulator
 {
-	/// <summary>
-	/// Pokemon Class - 
-	/// The base class for all pokemon.
-	/// </summary>
-	internal class Pokemon
-	{
-		public String Name = "";
-		public String Type = "";
-		int MaxHitpoints = 80;
-		int Hp = 80; 
-		Boolean InBall = true;
-		Boolean Burned = false;
+    /// <summary>
+    /// Pokemon Class
+    /// </summary>
+    public abstract class Pokemon
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public int HP { get; set; }
+        public int MaxHP { get; set; }
+        public bool IsDefeated {
+            get {
+                if (HP > 0) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+             }
+            set
+            {
+                return;
+            }
+        }
 
-		/// <summary>
-		/// Constructor for Pokemon - update the name.
-		/// </summary>
-		/// <param name="name"></param>
-		public Pokemon(string name)
-		{
-			this.Name = name;
-		}
+        public Pokemon(string name, string type, int maxHP)
+        {
+            Name = name;
+            Type = type;
+            MaxHP = maxHP;
+            HP = maxHP;
+        }
 
-		public void IChooseYou()
-		{
-			if (InBall)
-			{
-				Console.WriteLine($"{Name} bursts out of the pokeball!");
-				InBall = false;
-			}
-		}
+        public void DisplayPokemon()
+        {
+            Console.WriteLine($"{Name} - Type: {Type} | HP: {HP}/{MaxHP}");
+        }
 
-		public void ComeBack()
-		{
-			if (!InBall)
-			{
-				Console.WriteLine($"{Name} has returned to you!");
-				InBall = true;
-			}
-		}
-
-		public void QuickAttack(Pokemon p)
-		{
-			if (InBall)
-			{
-				Console.WriteLine($"{Name} rattles around in the pokeball, but does not attack!");
-				return;
-			}
-
-			Console.WriteLine($"{Name} uses quick attack against {p.Name}");
-			p.DamagePokemon(20);
-		}
-
-		public void DamagePokemon(int damage)
-		{
-			Console.WriteLine($"{Name} is hurt with the attack");
-			Hp = Hp - damage;
-			if (Hp <= 0) {
-				Console.WriteLine($"{Name} has fainted!");
-				Console.WriteLine($"{Name} has returned to the pokeball");
-				InBall = true;
-			} else
-			{
-				ShowStats();
-			}
-		}
-
-		public void BurnPokemon()
-		{
-			if (Burned)
-			{
-				Console.WriteLine($"The attack Burned {Name} 🔥🔥");
-				Burned = true;
-			}
-		}
-
-		public void ShowStats()
-		{
-			Console.WriteLine($"{Name} has {Hp}/{MaxHitpoints}");
-		}
-
-	}
+        public void TakeDamage(int damage)
+        {
+            HP -= damage;
+            if (HP < 0)
+            {
+                HP = 0;
+            }
+            Console.WriteLine($"{Name} takes {damage} damage! Remaining HP: {HP}");
+        }
+    }
 }

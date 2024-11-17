@@ -6,29 +6,24 @@ using System.Threading.Tasks;
 
 namespace Pokemon_Battle_SImulator
 {
-	internal class GrassPokemon : Pokemon
-	{
-		public GrassPokemon(String name) : base(name)
-		{
-			this.Type = "Grass";
-		}
+    /// <summary>
+    /// Grass Pokemon
+    /// </summary>
+    public class GrassPokemon : Pokemon
+    {
+        public GrassPokemon(string name, int maxHP) : base(name, "Grass", maxHP) { }
 
-		public void RazorLeaf(Pokemon p)
-		{
-			int damage = 40;
-			Console.WriteLine($"{Name} uses RazorLeaf");
-			Console.WriteLine($"{Name} sends a blast of razor sharp leaves towards {p.Name}");
-			if (p.Type == "Fire")
-			{
-				damage /= 2;
-				Console.WriteLine("The attack was not effective");
-			}
-			if (p.Type == "Water")
-			{
-				damage *= 2;
-				Console.WriteLine("The attack was supereffective");
-			}
-			p.DamagePokemon(damage);
-		}
-	}
+        public void VineWhip(Pokemon opponent)
+        {
+            Console.WriteLine($"{Name} uses Vine Whip!");
+            opponent.TakeDamage(8);
+        }
+
+        public void RazorLeaf(Pokemon opponent)
+        {
+            Console.WriteLine($"{Name} uses Razor Leaf!");
+            opponent.TakeDamage(12);
+        }
+    }
 }
+

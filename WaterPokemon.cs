@@ -7,29 +7,20 @@ using System.Xml.Linq;
 
 namespace Pokemon_Battle_SImulator
 {
-	internal class WaterPokemon: Pokemon
-	{
-		public WaterPokemon(String name) : base(name)
-		{
-			this.Type = "Water";
-		}
+    public class WaterPokemon : Pokemon
+    {
+        public WaterPokemon(string name, int maxHP) : base(name, "Water", maxHP) { }
 
-		public void HydroCannon(Pokemon p)
-		{
-			int damage = 40;
-			Console.WriteLine($"{Name} uses HydroCannon");
-			Console.WriteLine($"{Name} blasts a cannon of water towards {p.Name}");
-			if (p.Type == "Grass")
-			{
-				damage /= 2;
-				Console.WriteLine("The attack was not effective");
-			}
-			if (p.Type == "Fire")
-			{
-				damage *= 2;
-				Console.WriteLine("The attack was supereffective");
-			}
-			p.DamagePokemon(damage);
-		}
-	}
+        public void WaterGun(Pokemon opponent)
+        {
+            Console.WriteLine($"{Name} uses Water Gun!");
+            opponent.TakeDamage(10);
+        }
+
+        public void BubbleBeam(Pokemon opponent)
+        {
+            Console.WriteLine($"{Name} uses Bubble Beam!");
+            opponent.TakeDamage(12);
+        }
+    }
 }
